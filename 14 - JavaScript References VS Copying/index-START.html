@@ -9,11 +9,26 @@
 
   <script>
     // start with strings, numbers and booleans
+    let age = 100;
+    let age2 = age;
+    console.log(age, age2);
+    age = 200;
+    console.log(age, age2);
+
+    let name = 'Wes';
+    let name2 = name;
+    console.log(name, name2);
+    name = 'wesley';
+    console.log(name, name2);
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
+    const team = players;
+    //console.log(players, team);
+    team[3]='Lux';
+    console.log(players,team);
 
     // You might think we can just do something like this:
 
@@ -26,12 +41,25 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    const teamB = players.slice();
+    teamB[3]='Lily'
+    console.log(players, teamB);
 
     // one way
+    const teamC = [].concat(players);
+    teamC[3]='Lisa'
+    console.log(players, teamC);
 
     // or create a new array and concat the old one in
 
     // or use the new ES6 Spread
+    const teamD = [...players];
+    teamD[3]='Stella'
+    console.log(players, teamD)
+
+    const teamE = Array.from(players);
+    teamE[3]='Linda'
+    console.log(players, teamE);
 
     // now when we update it, the original one isn't changed
 
@@ -44,12 +72,46 @@
     };
 
     // and think we make a copy:
+    const captain = {...person}
+    captain.age = 70;
+    console.log(person, captain)
+
+    const captainB = Object.assign({}, person, {age: 60})
+    console.log(person, captainB)
 
     // how do we take a copy instead?
 
     // We will hopefully soon see the object ...spread
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const wes = {
+      name: 'Wes',
+      age: 50,
+      social: {
+        twi: '@wesss',
+        fb: 'wesss.developer',
+        phone: {
+          cell: 67643597,
+          home: 90872432
+        }
+      }
+    }
+    console.clear();
+    console.log(wes);
+
+    const dev = Object.assign({}, wes)
+    console.log(dev)
+    dev.name = 'Will'
+    console.log(wes, dev)
+
+    dev.social.twi = '@devman'
+    console.log(wes.social, dev.social)
+    // because object.assign only clone 1 level deep, so the .social.twi is not cloned, it's a reference
+
+    const devB = JSON.parse(JSON.stringify(wes))
+    devB.social.twi = '@webDev'
+    devB.social.phone.cell = undefined
+    console.log(wes.social, devB.social)
 
   </script>
 
